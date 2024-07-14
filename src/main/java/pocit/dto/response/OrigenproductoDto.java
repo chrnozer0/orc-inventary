@@ -1,4 +1,4 @@
-package pocit.dto;
+package pocit.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,12 +7,10 @@ import java.time.Instant;
 
 @Getter
 @Setter
-public class Tblproductolistaprecio {
-    private Integer id;
+public class OrigenproductoDto {
+    private Short id;
     private String descripcion;
     private String nomenclatura;
-    private Integer idtipomoneda;
     private Instant fechaultimamodificacion;
     private Integer idusuariomodifica;
-
 }

@@ -1,4 +1,4 @@
-package pocit.dto;
+package pocit.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Tblproductotipomoneda {
+public class Productotipomoneda {
     private Integer id;
     private Integer idproducto;
     private Short idtipomoneda;

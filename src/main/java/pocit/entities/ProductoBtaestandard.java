@@ -1,4 +1,4 @@
-package pocit.dto;
+package pocit.entities;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class TblproductoBtaestandard {
+public class ProductoBtaestandard {
     private Integer id;
     private Integer idproducto;
     private Integer idproductofilatubos;

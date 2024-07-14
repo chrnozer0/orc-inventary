@@ -1,4 +1,4 @@
-package pocit.entities;
+package pocit.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,11 @@ import java.time.Instant;
 
 @Getter
 @Setter
-public class OrganizacionRubro {
+public class ProductofilatuboDto {
     private Integer id;
-    private String descripcion;
-    private String nomenclatura;
+    private Short largotubos;
     private Instant fechaultimamodificacion;
     private Integer idusuariomodifica;
+    private Short filas;
+
 }

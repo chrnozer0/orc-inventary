@@ -1,4 +1,4 @@
-package pocit.dto;
+package pocit.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-public class Tblproducto {
+public class ProductoDto {
     private Integer id;
     private String codigo;
     private String descripcion;
