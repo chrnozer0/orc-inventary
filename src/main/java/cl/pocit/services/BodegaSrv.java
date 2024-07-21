@@ -5,7 +5,6 @@ import cl.pocit.entities.Bodega;
 import cl.pocit.repositories.BlInventoryBodega;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import cl.pocit.util.MapperUtil;
 

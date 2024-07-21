@@ -1,7 +1,9 @@
+
 package cl.pocit.resources;
 
-import cl.pocit.dto.response.BodegaDto;
-import cl.pocit.entities.Bodega;
+import cl.pocit.dto.response.MovimientobodegadetalleDto;
+import cl.pocit.entities.Movimientobodegadetalle;
+import cl.pocit.services.MovBodDetSrv;
 import cl.pocit.util.MapperUtil;
 import cl.pocit.util.Util;
 import jakarta.inject.Inject;
@@ -10,14 +12,13 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import cl.pocit.services.BodegaSrv;
 
-@Path("/comuna")
+@Path("/movimientobodegadetalle")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class BodegaResource {
+public class MovBodDetResource {
     @Inject
-    BodegaSrv bodegaSrv;
+    MovBodDetSrv movBodDetSrv;
     @Inject
     Util util;
 
@@ -28,34 +29,55 @@ public class BodegaResource {
     public Response getById(@PathParam("id") int id) {
         try {
             return util.buildOkResponse(
-                    MapperUtil.mapList(bodegaSrv.getById(id), Bodega.class));
+                    MapperUtil.mapList(movBodDetSrv.getById(id), MovimientobodegadetalleDto.class));
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
+
     @Operation(summary = "Returns a ComunaByRegion")
     @APIResponse(responseCode = "200", description = "listar comunas")
     @GET
-    @Path("/buscarPorNombre/{nombre}")
-    public Response getByName(@PathParam("nombre") String nombre) {
+    @Path("/buscarPorIdMovimientoBodega/{idmovimientobodega}")
+    public Response getByName(@PathParam("idmovimientobodega") int idmovimientobodega) {
         try {
             return util.buildOkResponse(
                     MapperUtil.mapList(
-                            bodegaSrv.getByName(nombre),
-                            Bodega.class));
+                            movBodDetSrv.getByIdMovimientoBodega(idmovimientobodega),
+                            MovimientobodegadetalleDto.class));
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
+
     @Operation(summary = "Returns a ComunaByRegion")
     @APIResponse(responseCode = "200", description = "listar comunas")
     @GET
-    @Path("/listar")
-    public Response list(){
+    @Path("/buscarPorIdBodega/{idBodega}")
+    public Response getByIdBodega(@PathParam("idBodega") int idBodega) {
         try {
-            return util.buildOkResponse(bodegaSrv.list());
+            return util.buildOkResponse(
+                    MapperUtil.mapList(
+                            movBodDetSrv.getByIdBodega(idBodega),
+                            MovimientobodegadetalleDto.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Operation(summary = "Returns a ComunaByRegion")
+    @APIResponse(responseCode = "200", description = "listar comunas")
+    @GET
+    @Path("/buscarPorIdProducto/{idproducto}")
+    public Response getByIdProducto(@PathParam("idproducto") int idproducto) {
+        try {
+            return util.buildOkResponse(
+                    MapperUtil.mapList(
+                            movBodDetSrv.getByIdProducto(idproducto),
+                            MovimientobodegadetalleDto.class));
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
@@ -66,14 +88,14 @@ public class BodegaResource {
     @APIResponse(responseCode = "200", description = "listar comunas")
     @POST
     @Path("/guardar")
-    public Response save(BodegaDto bodega){
+    public Response save(MovimientobodegadetalleDto movimientobodegadetalleDto){
         try {
             return util.buildOkResponse(
                     MapperUtil.map(
-                            bodegaSrv.save(
-                                    MapperUtil.map(bodega, Bodega.class)
-                            ), BodegaDto.class)
-                    );
+                            movBodDetSrv.save(
+                                    MapperUtil.map(movimientobodegadetalleDto, Movimientobodegadetalle.class)
+                            ), MovimientobodegadetalleDto.class)
+            );
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
@@ -83,19 +105,17 @@ public class BodegaResource {
     @APIResponse(responseCode = "200", description = "listar comunas")
     @PUT
     @Path("/actualizar")
-    public Response update(BodegaDto bodega){
+    public Response update(MovimientobodegadetalleDto movimientobodegadetalleDto){
         try {
             return util.buildOkResponse(
                     MapperUtil.map(
-                            bodegaSrv.update(
-                                    MapperUtil.map(bodega, Bodega.class)
-                            ), BodegaDto.class)
+                            movBodDetSrv.update(
+                                    MapperUtil.map(movimientobodegadetalleDto, Movimientobodegadetalle.class)
+                            ), MovimientobodegadetalleDto.class)
             );
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }

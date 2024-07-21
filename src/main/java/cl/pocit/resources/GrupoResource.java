@@ -1,7 +1,8 @@
 package cl.pocit.resources;
 
-import cl.pocit.dto.response.BodegaDto;
-import cl.pocit.entities.Bodega;
+import cl.pocit.dto.response.GrupoDto;
+import cl.pocit.entities.Grupo;
+import cl.pocit.services.GrupoSrv;
 import cl.pocit.util.MapperUtil;
 import cl.pocit.util.Util;
 import jakarta.inject.Inject;
@@ -10,16 +11,15 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import cl.pocit.services.BodegaSrv;
 
-@Path("/comuna")
+@Path("/grupo")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class BodegaResource {
-    @Inject
-    BodegaSrv bodegaSrv;
+public class GrupoResource {
     @Inject
     Util util;
+    @Inject
+    GrupoSrv grupoSrv;
 
     @Operation(summary = "Returns a ComunaByRegion")
     @APIResponse(responseCode = "200", description = "listar comunas")
@@ -28,7 +28,7 @@ public class BodegaResource {
     public Response getById(@PathParam("id") int id) {
         try {
             return util.buildOkResponse(
-                    MapperUtil.mapList(bodegaSrv.getById(id), Bodega.class));
+                    MapperUtil.mapList(grupoSrv.getById(id), Grupo.class));
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
@@ -42,38 +42,25 @@ public class BodegaResource {
         try {
             return util.buildOkResponse(
                     MapperUtil.mapList(
-                            bodegaSrv.getByName(nombre),
-                            Bodega.class));
+                            grupoSrv.getByName(nombre),
+                            Grupo.class));
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
-    @Operation(summary = "Returns a ComunaByRegion")
-    @APIResponse(responseCode = "200", description = "listar comunas")
-    @GET
-    @Path("/listar")
-    public Response list(){
-        try {
-            return util.buildOkResponse(bodegaSrv.list());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
-        }
-    }
-
     @Operation(summary = "Returns a ComunaByRegion")
     @APIResponse(responseCode = "200", description = "listar comunas")
     @POST
     @Path("/guardar")
-    public Response save(BodegaDto bodega){
+    public Response save(GrupoDto grupoDto){
         try {
             return util.buildOkResponse(
                     MapperUtil.map(
-                            bodegaSrv.save(
-                                    MapperUtil.map(bodega, Bodega.class)
-                            ), BodegaDto.class)
-                    );
+                            grupoSrv.save(
+                                    MapperUtil.map(grupoDto, Grupo.class)
+                            ), GrupoDto.class)
+            );
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
@@ -83,19 +70,17 @@ public class BodegaResource {
     @APIResponse(responseCode = "200", description = "listar comunas")
     @PUT
     @Path("/actualizar")
-    public Response update(BodegaDto bodega){
+    public Response update(GrupoDto grupoDto){
         try {
             return util.buildOkResponse(
                     MapperUtil.map(
-                            bodegaSrv.update(
-                                    MapperUtil.map(bodega, Bodega.class)
-                            ), BodegaDto.class)
+                            grupoSrv.update(
+                                    MapperUtil.map(grupoDto, Grupo.class)
+                            ), GrupoDto.class)
             );
         } catch (Exception e) {
             e.printStackTrace();
             return util.buildNoOkResponse(Response.Status.INTERNAL_SERVER_ERROR);
         }
     }
-
-
 }
