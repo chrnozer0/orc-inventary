@@ -1,10 +1,7 @@
 package cl.pocit.services;
 
 import cl.pocit.dto.Tblmovimientobodega;
-import cl.pocit.dto.Tblmovimientobodegadetalle;
 import cl.pocit.entities.Movimientobodega;
-import cl.pocit.entities.Movimientobodegadetalle;
-import cl.pocit.repositories.BlInventoryMovBodDet;
 import cl.pocit.repositories.BlInventoryMovBodega;
 import cl.pocit.util.MapperUtil;
 import jakarta.enterprise.context.ApplicationScoped;
